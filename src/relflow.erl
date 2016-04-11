@@ -152,10 +152,7 @@ exec(Map, State, Next) ->
 
 exec_1(Map, State, Next) ->
     NewRelVsn = relflow_state:nextver(State),
-    case NewRelVsn > relflow_state:oldrelver(State) of
-        true  -> Next(Map, State, NewRelVsn);
-        false -> ?PRV_ERROR({relvsn_ordering, relflow_state:oldrelver(State), NewRelVsn})
-    end.
+    Next(Map, State, NewRelVsn).
 
 exec_2(Map, State, NewRelVsn) ->
     lists:foreach(fun({_AppName, #{appup_path := Path,
